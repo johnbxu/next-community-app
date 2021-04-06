@@ -1,20 +1,17 @@
 import Nav from './Nav';
 import Meta from './Meta';
-import Header from './Header';
-import styles from '../styles/Layout.module.css';
 
 const Layout = ({ children }) => {
   return (
-    <>
+    <div className='container-lg max-w-5xl p-2 mx-auto'>
       <Meta />
       <Nav />
-      <div className={styles.container}>
-        <main className={styles.main}>
-          <Header />
+      <div>
+        <main>
           {children}
         </main>
       </div>
-    </>
+    </div>
   );
 };
 

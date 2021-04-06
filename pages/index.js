@@ -1,23 +1,23 @@
-import { server } from '../config/index';
-import ArticleList from '../components/ArticleList';
+import PostList from '../components/PostList';
 
-export default function Home({ articles }) {
+export default function Home({ posts }) {
   return (
     <div>
-      <ArticleList articles={articles} />
+      <PostList posts={posts} />
     </div>
   );
 }
 
-export const getStaticProps = async () => {
+export const getServerSideProps = async () => {
+  const {API_URL} = process.env
   const res = await fetch(
-    `${server}/api/articles`
+    `${API_URL}/posts`
   );
-  const articles = await res.json();
+  const posts = await res.json();
 
   return {
     props: {
-      articles,
+      posts,
     },
   };
 };
