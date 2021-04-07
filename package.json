@@ -18,6 +18,7 @@
   "devDependencies": {
     "autoprefixer": "^10.2.5",
     "postcss": "^8.2.9",
+    "sqlite3": "^5.0.2",
     "tailwindcss": "^2.0.4"
   }
 }

@@ -3,7 +3,7 @@ import Link from 'next/link';
 const Nav = () => {
   return (
     <nav>
-      <ul className='flex items-center flex-wrap bg-teal-500 p-6'>
+      <ul className='flex items-center flex-wrap bg-teal-500 py-6'>
         <li className='mr-2'>
           <Link href="/">Home</Link>
         </li>

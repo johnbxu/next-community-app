@@ -18,3 +18,7 @@ a {
 * {
   box-sizing: border-box;
 }
+
+.skills-bg {
+  width: 1440px;
+}

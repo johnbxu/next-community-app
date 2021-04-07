@@ -7,7 +7,7 @@ const Layout = ({ children }) => {
       <Meta />
       <Nav />
       <div>
-        <main>
+        <main className="py-10">
           {children}
         </main>
       </div>

@@ -10,7 +10,7 @@ class New extends React.Component {
       title: '',
       skills: [1],
       username: 'test1',
-      post_type: '',
+      post_type: 'build',
       description: '',
     };
 
@@ -40,9 +40,15 @@ class New extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
 
-    const { title, description, skills, username, post_type, classChoice } = this.state;
+    const {
+      title,
+      description,
+      skills,
+      username,
+      post_type,
+      classChoice,
+    } = this.state;
     const { classIds } = this.props;
-    const { API_URL } = process.env;
 
     const req = {
       method: 'POST',
@@ -57,7 +63,7 @@ class New extends React.Component {
       }),
     };
 
-    fetch(`${API_URL}/posts/`, req)
+    fetch(`${process.env.API_URL}/posts/`, req)
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
@@ -90,8 +96,16 @@ class New extends React.Component {
     const { classSkills, classChoice, post_type, description } = this.state;
     return (
       <div>
-        <h1 className="mb-5">Create New Post</h1>
-        <input type="text" onChange={this.handleTitleChange} />
+        <h1 className="text-3xl mb-5">Create New Post</h1>
+        <div className="mb-5">
+          <label htmlFor="title">Title: </label>
+          <input
+            name="title"
+            type="text"
+            onChange={this.handleTitleChange}
+            className="rounded border-2 border-gray-500"
+          />
+        </div>
         <div className="type-select mb-5">
           <label htmlFor="class">Post type:</label>
 
@@ -110,7 +124,6 @@ class New extends React.Component {
 
         <div className="class-select mb-5">
           <label htmlFor="class">Class:</label>
-
           <select
             value={classChoice}
             name="class"
@@ -125,7 +138,8 @@ class New extends React.Component {
           </select>
         </div>
 
-        <section className="skills mb-5">
+        <section className="skills mb-5 overflow-x-scroll overflow-y-hidden relative">
+          <img className="max-w-none skills-bg" src="/outriders-devastator-skill-tree.jpeg" />
           {classSkills[classChoice].map((skillNode) => (
             <SkillNode
               key={skillNode.id}
@@ -143,6 +157,7 @@ class New extends React.Component {
             rows="10"
             value={description}
             onChange={this.handleTextChange}
+            className="w-full rounded border-2 border-gray-500"
           ></textarea>
         </section>
 
@@ -155,11 +170,10 @@ class New extends React.Component {
 export default New;
 
 export const getServerSideProps = async () => {
-  const { API_URL } = process.env;
   const classSkills = {};
   const classIds = {};
   for (let i = 1; i < 5; i += 1) {
-    const res = await fetch(`${API_URL}/classes/${i}`);
+    const res = await fetch(`${process.env.API_URL}/classes/${i}`);
     const { skill_nodes, title } = await res.json();
     classSkills[title] = skill_nodes;
     classIds[title] = i;

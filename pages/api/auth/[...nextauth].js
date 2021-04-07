@@ -1,5 +1,6 @@
 import NextAuth from 'next-auth';
 import Providers from 'next-auth/providers';
+import Adapters from 'next-auth/adapters'
 
 const options = {
   providers: [
@@ -8,6 +9,11 @@ const options = {
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     }),
   ],
+  adapter: Adapters.Default({
+    type: 'sqlite',
+    database: ':memory:',
+    synchronize: true
+  }),
   database: process.env.NEXT_PUBLIC_DATABASE_URL,
   session: {
     jwt: true,
