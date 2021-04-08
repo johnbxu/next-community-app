@@ -1,17 +1,17 @@
 import PostList from '../components/PostList';
-import { getSession, signIn, signOut } from 'next-auth/client';
 import Link from 'next/link';
+import Layout from '../components/Layout';
 
-export default function Home({ posts, session }) {
+export default function Home({ posts }) {
   return (
-    <div>
+    <Layout>
       <PostList posts={posts} />
-    </div>
+    </Layout>
   );
 }
 
-export const getServerSideProps = async () => {
-  const res = await fetch(`${process.env.API_URL}/posts`);
+export async function getServerSideProps() {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/posts`);
   const posts = await res.json();
 
   return {

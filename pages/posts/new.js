@@ -1,5 +1,6 @@
 import React from 'react';
 import SkillNode from '../../components/SkillNode';
+import Layout from '../../components/Layout';
 
 class New extends React.Component {
   constructor(props) {
@@ -63,7 +64,7 @@ class New extends React.Component {
       }),
     };
 
-    fetch(`${process.env.API_URL}/posts/`, req)
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/posts/`, req)
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
@@ -95,7 +96,7 @@ class New extends React.Component {
   render() {
     const { classSkills, classChoice, post_type, description } = this.state;
     return (
-      <div>
+      <Layout>
         <h1 className="text-3xl mb-5">Create New Post</h1>
         <div className="mb-5">
           <label htmlFor="title">Title: </label>
@@ -162,7 +163,7 @@ class New extends React.Component {
         </section>
 
         <button onClick={this.handleSubmit}>Submit</button>
-      </div>
+      </Layout>
     );
   }
 }

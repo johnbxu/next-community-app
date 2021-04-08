@@ -11,11 +11,11 @@ const Post = ({ post }) => {
   );
 };
 
-const { API_URL } = process.env;
+const { NEXT_PUBLIC_API_URL } = process.env;
 
 export async function getServerSideProps(ctx) {
   const { id } = ctx.query;
-  const res = await fetch(`${API_URL}/posts/${id}`);
+  const res = await fetch(`${NEXT_PUBLIC_API_URL}/posts/${id}`);
   const post = await res.json();
 
   return {
