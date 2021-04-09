@@ -1,20 +1,24 @@
-import React from 'react'
+import React, { useEffect, useContext, useState } from 'react';
+import AppContext from '../../context/AppContext';
+import PostList from '../../components/PostList';
+import Cookie from 'js-cookie';
 
-const UserPosts = ({props}) => {
+const Posts = () => {
+  const { user } = useContext(AppContext);
+  const [posts, setPosts] = useState([]);
+  const token = Cookie.get('jwt');
+  useEffect(async () => {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/posts?users_permissions_user=${user.id}`
+    );
+    const posts = await res.json();
+    setPosts(posts);
+  }, []);
   return (
-    <div>
-      
-    </div>
-  )
-}
-
-export default UserPosts
-
-export const getServerSideProps = async () => {
-  const res = await fetch(`${process.env.API_URL}/posts?user=`);
-
-  return {
-    props: {
-    },
-  };
+    <>
+      <PostList posts={posts}></PostList>
+    </>
+  );
 };
+
+export default Posts;

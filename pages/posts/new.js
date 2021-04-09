@@ -1,6 +1,5 @@
 import React from 'react';
 import SkillNode from '../../components/SkillNode';
-import Layout from '../../components/Layout';
 
 class New extends React.Component {
   constructor(props) {
@@ -15,27 +14,13 @@ class New extends React.Component {
       description: '',
     };
 
-    this.handleClassChoiceChange = this.handleClassChoiceChange.bind(this);
-    this.handlePostTypeChange = this.handlePostTypeChange.bind(this);
+    this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleTextChange = this.handleTextChange.bind(this);
-    this.handleTitleChange = this.handleTitleChange.bind(this);
     this.toggleSkill = this.toggleSkill.bind(this);
   }
 
-  handleClassChoiceChange(e) {
-    this.setState({ classChoice: e.target.value });
-  }
-
-  handlePostTypeChange(e) {
-    this.setState({ post_type: e.target.value });
-  }
-
-  handleTextChange(e) {
-    this.setState({ description: e.target.value });
-  }
-  handleTitleChange(e) {
-    this.setState({ title: e.target.value });
+  handleChange(event) {
+    this.setState({ ...this.state, [event.target.name]: event.target.value });
   }
 
   handleSubmit(e) {
@@ -63,6 +48,8 @@ class New extends React.Component {
         class: classIds[classChoice],
       }),
     };
+
+    console.log(req)
 
     fetch(`${process.env.NEXT_PUBLIC_API_URL}/posts/`, req)
       .then((res) => res.json())
@@ -96,14 +83,14 @@ class New extends React.Component {
   render() {
     const { classSkills, classChoice, post_type, description } = this.state;
     return (
-      <Layout>
+      <>
         <h1 className="text-3xl mb-5">Create New Post</h1>
         <div className="mb-5">
           <label htmlFor="title">Title: </label>
           <input
             name="title"
             type="text"
-            onChange={this.handleTitleChange}
+            onChange={this.handleChange}
             className="rounded border-2 border-gray-500"
           />
         </div>
@@ -112,9 +99,9 @@ class New extends React.Component {
 
           <select
             value={post_type}
-            name="class"
+            name="post_type"
             id="class"
-            onChange={this.handlePostTypeChange}
+            onChange={this.handleChange}
             required
           >
             <option value=""></option>
@@ -127,9 +114,9 @@ class New extends React.Component {
           <label htmlFor="class">Class:</label>
           <select
             value={classChoice}
-            name="class"
+            name="classChoice"
             id="class"
-            onChange={this.handleClassChoiceChange}
+            onChange={this.handleChange}
             required
           >
             <option value="Devastator">Devastator</option>
@@ -157,13 +144,13 @@ class New extends React.Component {
             cols="30"
             rows="10"
             value={description}
-            onChange={this.handleTextChange}
+            onChange={this.handleChange}
             className="w-full rounded border-2 border-gray-500"
           ></textarea>
         </section>
 
         <button onClick={this.handleSubmit}>Submit</button>
-      </Layout>
+      </>
     );
   }
 }
@@ -174,7 +161,7 @@ export const getServerSideProps = async () => {
   const classSkills = {};
   const classIds = {};
   for (let i = 1; i < 5; i += 1) {
-    const res = await fetch(`${process.env.API_URL}/classes/${i}`);
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/classes/${i}`);
     const { skill_nodes, title } = await res.json();
     classSkills[title] = skill_nodes;
     classIds[title] = i;

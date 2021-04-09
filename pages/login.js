@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import Layout from '../components/Layout';
 import { login, registerUser } from '../lib/auth';
 import { useContext } from 'react';
 import AppContext from '../context/AppContext';
@@ -23,6 +22,7 @@ const Login = () => {
   function handleLogin(identifier, password) {
     login(identifier, password)
       .then((res) => {
+        console.log(res)
         appContext.setUser(res.user);
       })
       .catch((error) => error.json())
@@ -46,7 +46,7 @@ const Login = () => {
   }
 
   return (
-    <Layout>
+    <>
       <div className="container mx-auto max-w-md">
         <div className="p-10 border-2 border-black mb-5">
           <h1>Log in here</h1>
@@ -109,7 +109,7 @@ const Login = () => {
           </form>
         </div>
       </div>
-    </Layout>
+    </>
   );
 };
 

@@ -1,12 +1,8 @@
 import PostList from '../components/PostList';
-import Link from 'next/link';
-import Layout from '../components/Layout';
 
 export default function Home({ posts }) {
   return (
-    <Layout>
-      <PostList posts={posts} />
-    </Layout>
+    <PostList posts={posts} />
   );
 }
 

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
-import Cookie from 'js-cookie'
+import Cookie from 'js-cookie';
 import AppContext from '../context/AppContext';
+import Layout from '../components/Layout';
 import '../styles/globals.css';
 
 function MyApp({ Component, pageProps, context }) {
@@ -39,9 +40,11 @@ function MyApp({ Component, pageProps, context }) {
         setUser,
       }}
     >
-      <Component {...pageProps} />;
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
     </AppContext.Provider>
-  );
+  )
 }
 
 export default MyApp;

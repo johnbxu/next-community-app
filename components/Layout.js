@@ -10,7 +10,7 @@ const Layout = ({ props, children }) => {
         <main className="py-10">{children}</main>
       </div>
     </div>
-  );
-};
+  )
+}
 
 export default Layout;
