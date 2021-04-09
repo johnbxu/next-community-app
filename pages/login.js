@@ -22,7 +22,6 @@ const Login = () => {
   function handleLogin(identifier, password) {
     login(identifier, password)
       .then((res) => {
-        console.log(res)
         appContext.setUser(res.user);
       })
       .catch((error) => error.json())

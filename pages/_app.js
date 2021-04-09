@@ -27,7 +27,6 @@ function MyApp({ Component, pageProps, context }) {
         }
         const user = await res.json();
         setUser(user);
-        console.log(user);
       });
     }
   }, []);
