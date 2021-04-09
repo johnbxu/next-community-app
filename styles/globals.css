@@ -22,3 +22,15 @@ a {
 .skills-bg {
   width: 1440px;
 }
+
+button {
+  border: 1px solid black;
+  border-radius: 3px;
+  padding: 0.75em 1.5em;
+  @apply transition-colors;
+}
+
+button:hover {
+  background-color: black;
+  color: white;
+}

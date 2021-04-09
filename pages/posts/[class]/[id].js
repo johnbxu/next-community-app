@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import Cookie from 'js-cookie';
 import AppContext from '../../../context/AppContext';
 import PostFull from '../../../components/PostFull';
@@ -7,9 +7,8 @@ const { NEXT_PUBLIC_API_URL } = process.env;
 
 const Post = ({ post, classSkills, classIds }) => {
   const [postData, updatePostData] = useState(post);
-  const { user, isAuthenticated } = useContext(AppContext);
+  const { user, isAuthenticated, setUser } = useContext(AppContext);
   const token = Cookie.get('jwt');
-  console.log(postData.class);
 
   function onChange(event) {
     updatePostData({ ...postData, [event.target.name]: event.target.value });
@@ -36,15 +35,7 @@ const Post = ({ post, classSkills, classIds }) => {
   function handleSubmit(e) {
     e.preventDefault();
 
-    const {
-      title,
-      description,
-      skills,
-      post_type,
-      classChoice,
-      id,
-    } = postData;
-
+    const { title, description, skills, post_type, classChoice, id } = postData;
     const req = {
       method: 'PUT',
       headers: {
@@ -62,12 +53,51 @@ const Post = ({ post, classSkills, classIds }) => {
       }),
     };
 
-    console.log(req);
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/posts/${postData.id}`, req)
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+      });
+  }
+
+  function handleDelete(e) {
+    e.preventDefault();
+    const { id } = postData;
+    const req = {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: {
+        id,
+      },
+    };
 
     fetch(`${process.env.NEXT_PUBLIC_API_URL}/posts/${postData.id}`, req)
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
+      });
+  }
+
+  function handleVote(e) {
+    const req = {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        upvoted_posts: [...user.upvoted_posts, { id: post.id }],
+      }),
+    };
+
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/${user.id}`, req)
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setUser(data);
       });
   }
 
@@ -79,12 +109,16 @@ const Post = ({ post, classSkills, classIds }) => {
       handleChange={onChange}
       toggleSkill={toggleSkill}
       handleSubmit={handleSubmit}
+      handleDelete={handleDelete}
     />
   ) : (
     <PostFull
       pageTitle={postData.title}
       postData={postData}
       classSkills={classSkills}
+      handleVote={handleVote}
+      votes={postData.votes}
+      userId={user.id}
     />
   );
 };

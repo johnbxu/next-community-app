@@ -1,13 +1,16 @@
-import React from 'react';
+import { useContext, useState } from 'react';
 import SkillNode from './SkillNode';
+import AppContext from '../context/AppContext';
 
 const PostFull = ({
   pageTitle,
-  handleChange,
   classSkills,
-  toggleSkill,
-  handleSubmit,
   postData,
+  toggleSkill,
+  handleChange,
+  handleVote,
+  handleSubmit,
+  handleDelete
 }) => {
   const {
     title,
@@ -16,30 +19,32 @@ const PostFull = ({
     author,
     published_at,
     updated_at,
+    votes,
   } = postData;
   const classChoice = postData.class.title;
+  const { user } = useContext(AppContext);
 
   return (
     <>
       <h1 className="text-3xl mb-5">{pageTitle}</h1>
       {pageTitle === 'Create New Build' || pageTitle === 'Edit Build' ? (
-        <>
+        <form>
           <div className="mb-5">
             <label htmlFor="title">Title: </label>
             <input
               name="title"
               type="text"
+              value={title}
               onChange={(event) => handleChange(event)}
               className="rounded border-2 border-gray-500"
             />
           </div>
           <div className="type-select mb-5">
-            <label htmlFor="class">Post type:</label>
-
+            <label htmlFor="post_type">Post type:</label>
             <select
               value={post_type}
               name="post_type"
-              id="class"
+              id="post_type"
               onChange={(event) => handleChange(event)}
               required
             >
@@ -80,6 +85,7 @@ const PostFull = ({
           </section>
 
           <section>
+            <label htmlFor="description">Description</label>
             <textarea
               name="description"
               id="description"
@@ -91,17 +97,17 @@ const PostFull = ({
             ></textarea>
           </section>
 
-          <button onClick={(event) => handleSubmit(event)}>Submit</button>
-          {/* <button onClick={this.handleDelete}>Delete</button> */}
-        </>
+          <button type="button" onClick={(e) => handleSubmit(e)}>Submit</button>
+          <button type="button" onClick={(e) => handleDelete(e)}>Delete Post</button>
+        </form>
       ) : (
         <>
-          <h3>{title}</h3>
-          <p>{author.username}</p>
-          <p>Type: {post_type}</p>
+          <p>Created by: {author.username}</p>
           <p>Published at: {published_at}</p>
           <p>Updated at: {updated_at}</p>
-          <p>{description}</p>
+          <p className="my-2">{description}</p>
+          <p>Votes: {votes}</p>
+          <button onClick={handleVote}>Vote</button>
         </>
       )}
     </>

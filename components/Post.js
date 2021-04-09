@@ -14,6 +14,7 @@ const Post = ({ post }) => {
           />
           <p>Published at: {post.published_at}</p>
           <p>Updated at: {post.updated_at}</p>
+          <p>Votes: {post.votes}</p>
         </div>
       </a>
     </Link>

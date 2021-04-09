@@ -24,19 +24,6 @@ class New extends React.Component {
     this.setState({ ...this.state, [event.target.name]: event.target.value });
   }
 
-  // handleDelete(event) {
-  //   const token = Cookie.get('jwt');
-
-  //   const req = {
-  //     method: 'DELETE',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //       Authorization: `Bearer ${token}`,
-  //     },
-  //   };
-  //   fetch(`${process.env.NEXT_PUBLIC_API_URL}/posts/${post.id}`, req)
-  // }
-
   handleSubmit(e) {
     e.preventDefault();
 
