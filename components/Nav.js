@@ -31,7 +31,7 @@ const Nav = () => {
                 setUser(null);
               }}
             >
-              Log Out
+              <Link href="/">Log Out</Link>
             </li>
           </>
         ) : (

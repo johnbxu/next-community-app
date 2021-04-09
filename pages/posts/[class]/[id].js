@@ -1,5 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react';
 import Cookie from 'js-cookie';
+import Router from 'next/router';
 import AppContext from '../../../context/AppContext';
 import PostFull from '../../../components/PostFull';
 
@@ -74,11 +75,13 @@ const Post = ({ post, classSkills, classIds }) => {
       },
     };
 
-    fetch(`${process.env.NEXT_PUBLIC_API_URL}/posts/${postData.id}`, req)
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-      });
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/posts/${postData.id}`, req).then(
+      (res) => {
+        if (res.ok) {
+          Router.push('/');
+        }
+      }
+    );
   }
 
   function handleVote(e) {
@@ -105,6 +108,7 @@ const Post = ({ post, classSkills, classIds }) => {
     <PostFull
       pageTitle="Edit Build"
       postData={postData}
+      classChoice={postData.classChoice}
       classSkills={classSkills}
       handleChange={onChange}
       toggleSkill={toggleSkill}

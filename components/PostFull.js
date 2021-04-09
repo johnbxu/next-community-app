@@ -5,6 +5,7 @@ import AppContext from '../context/AppContext';
 const PostFull = ({
   pageTitle,
   classSkills,
+  classChoice,
   postData,
   toggleSkill,
   handleChange,
@@ -21,7 +22,6 @@ const PostFull = ({
     updated_at,
     votes,
   } = postData;
-  const classChoice = postData.class.title;
   const { user } = useContext(AppContext);
 
   return (
@@ -48,7 +48,6 @@ const PostFull = ({
               onChange={(event) => handleChange(event)}
               required
             >
-              <option value=""></option>
               <option value="post">Post</option>
               <option value="build">Build</option>
             </select>

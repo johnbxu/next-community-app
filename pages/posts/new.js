@@ -1,5 +1,5 @@
 import React from 'react';
-import PostFull from '../../components/PostFull'
+import PostFull from '../../components/PostFull';
 import Cookie from 'js-cookie';
 
 class New extends React.Component {
@@ -27,14 +27,8 @@ class New extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
 
-    const {
-      title,
-      description,
-      skills,
-      username,
-      post_type,
-      classChoice,
-    } = this.state;
+    const { classChoice } = this.state;
+    const { title, description, skills, post_type } = this.state;
     const { classIds } = this.props;
     const token = Cookie.get('jwt');
 
@@ -56,7 +50,7 @@ class New extends React.Component {
 
     fetch(`${process.env.NEXT_PUBLIC_API_URL}/posts/`, req)
       .then((res) => res.json())
-      .catch((err) => console.log(err))
+      .catch((err) => console.log(err));
   }
 
   toggleSkill(skillId) {
@@ -78,17 +72,14 @@ class New extends React.Component {
   }
 
   render() {
-    const { classSkills, classChoice, post_type, description, title } = this.state;
+    const { classSkills, classChoice } = this.state;
     return (
       <PostFull
         pageTitle="Create New Build"
-        title={title}
-        description={description}
-        handleChange={this.handleChange}
+        postData={this.state}
         classChoice={classChoice}
         classSkills={classSkills}
-        post_type={post_type}
-        description={description}
+        handleChange={this.handleChange}
         toggleSkill={this.toggleSkill}
         handleSubmit={this.handleSubmit}
       />
