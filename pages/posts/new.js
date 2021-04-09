@@ -1,5 +1,6 @@
 import React from 'react';
 import SkillNode from '../../components/SkillNode';
+import Cookie from 'js-cookie';
 
 class New extends React.Component {
   constructor(props) {
@@ -23,6 +24,19 @@ class New extends React.Component {
     this.setState({ ...this.state, [event.target.name]: event.target.value });
   }
 
+  // handleDelete(event) {
+  //   const token = Cookie.get('jwt');
+
+  //   const req = {
+  //     method: 'DELETE',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //       Authorization: `Bearer ${token}`,
+  //     },
+  //   };
+  //   fetch(`${process.env.NEXT_PUBLIC_API_URL}/posts/${post.id}`, req)
+  // }
+
   handleSubmit(e) {
     e.preventDefault();
 
@@ -35,21 +49,25 @@ class New extends React.Component {
       classChoice,
     } = this.state;
     const { classIds } = this.props;
+    const token = Cookie.get('jwt');
 
     const req = {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+
       body: JSON.stringify({
         title,
         description,
         skills,
         post_type,
-        users_permissions_user: 1,
         class: classIds[classChoice],
       }),
     };
 
-    console.log(req)
+    console.log(req);
 
     fetch(`${process.env.NEXT_PUBLIC_API_URL}/posts/`, req)
       .then((res) => res.json())
@@ -127,7 +145,10 @@ class New extends React.Component {
         </div>
 
         <section className="skills mb-5 overflow-x-scroll overflow-y-hidden relative">
-          <img className="max-w-none skills-bg" src="/outriders-devastator-skill-tree.jpeg" />
+          <img
+            className="max-w-none skills-bg"
+            src="/outriders-devastator-skill-tree.jpeg"
+          />
           {classSkills[classChoice].map((skillNode) => (
             <SkillNode
               key={skillNode.id}
@@ -150,6 +171,7 @@ class New extends React.Component {
         </section>
 
         <button onClick={this.handleSubmit}>Submit</button>
+        {/* <button onClick={this.handleDelete}>Delete</button> */}
       </>
     );
   }

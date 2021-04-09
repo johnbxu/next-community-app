@@ -9,8 +9,8 @@ const Post = ({ post }) => {
           <h3>{post.title}</h3>
           <p>{post.post_type}</p>
           <User
-            user={post.users_permissions_user}
-            key={post.users_permissions_user.id}
+            user={post.author}
+            key={post.author.id}
           />
           <p>Published at: {post.published_at}</p>
           <p>Updated at: {post.updated_at}</p>

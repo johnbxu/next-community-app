@@ -9,7 +9,7 @@ const Posts = () => {
   const token = Cookie.get('jwt');
   useEffect(async () => {
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/posts?users_permissions_user=${user.id}`
+      `${process.env.NEXT_PUBLIC_API_URL}/posts?author=${user.id}`
     );
     const posts = await res.json();
     setPosts(posts);

@@ -13,10 +13,10 @@ const Post = ({ post }) => {
     updatePostData({ ...data, [event.target.name]: event.target.value });
   }
 
-  return isAuthenticated && user.id === post.users_permissions_user.id ? (
+  return isAuthenticated && user.id === post.author.id ? (
     <div>
       <h3>{postData.title}</h3>
-      <p>{postData.users_permissions_user.username}</p>
+      <p>{postData.author.username}</p>
       <p>Type: {postData.post_type}</p>
       <p>Published at: {postData.published_at}</p>
       <p>Updated at: {postData.updated_at}</p>
@@ -25,7 +25,7 @@ const Post = ({ post }) => {
   ) : (
     <div>
       <h3>{postData.title}</h3>
-      <p>{postData.users_permissions_user.username}</p>
+      <p>{postData.author.username}</p>
       <p>Type: {postData.post_type}</p>
       <p>Published at: {postData.published_at}</p>
       <p>Updated at: {postData.updated_at}</p>
