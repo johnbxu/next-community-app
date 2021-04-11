@@ -117,7 +117,18 @@ nav ul li {
     background-size: 50%;
     background-repeat: no-repeat;
     background-position-x: right;
+    background-color: black;
     position: relative;
+    transition: background-color 0.2s ease;
+    transition: color 0.2s ease;
+
+    &:hover {
+      color: black;
+
+      &::before {
+        background: rgba(255, 255, 255, 1);
+      }
+    }
 
     &::before {
       position: absolute;
