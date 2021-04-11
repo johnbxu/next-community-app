@@ -36,7 +36,7 @@ const Post = ({ post, classSkills, classIds }) => {
   function handleSubmit(e) {
     e.preventDefault();
 
-    const { title, description, skills, post_type, classChoice, id } = postData;
+    const { title, description, skills, classChoice, id } = postData;
     const req = {
       method: 'PUT',
       headers: {
@@ -49,7 +49,6 @@ const Post = ({ post, classSkills, classIds }) => {
         title,
         description,
         skills,
-        post_type,
         class: classIds[classChoice],
       }),
     };
@@ -108,7 +107,7 @@ const Post = ({ post, classSkills, classIds }) => {
     <PostFull
       pageTitle="Edit Build"
       postData={postData}
-      classChoice={postData.classChoice}
+      classChoice={postData.class.title}
       classSkills={classSkills}
       handleChange={onChange}
       toggleSkill={toggleSkill}

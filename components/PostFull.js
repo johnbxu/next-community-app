@@ -15,7 +15,6 @@ const PostFull = ({
 }) => {
   const {
     title,
-    post_type,
     description,
     author,
     published_at,
@@ -38,19 +37,6 @@ const PostFull = ({
               onChange={(event) => handleChange(event)}
               className="rounded border-2 border-gray-500"
             />
-          </div>
-          <div className="type-select mb-5">
-            <label htmlFor="post_type">Post type:</label>
-            <select
-              value={post_type}
-              name="post_type"
-              id="post_type"
-              onChange={(event) => handleChange(event)}
-              required
-            >
-              <option value="post">Post</option>
-              <option value="build">Build</option>
-            </select>
           </div>
 
           <div className="class-select mb-5">

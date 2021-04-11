@@ -1,18 +1,39 @@
 import PostList from '../components/PostList';
+import TopPosts from '../components/TopPosts';
 
-export default function Home({ posts }) {
+export default function Home({ allPosts, classPosts }) {
   return (
-    <PostList posts={posts} />
+    <>
+      <h2 className="mb-3">Top Builds</h2>
+      <TopPosts classPosts={classPosts} />
+      <h2 className="mb-3">Recent Builds</h2>
+      <PostList posts={allPosts} />
+    </>
   );
 }
 
-export async function getServerSideProps() {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/posts`);
-  const posts = await res.json();
+export async function getStaticProps() {
+  const { NEXT_PUBLIC_API_URL } = process.env;
+
+  const allPosts = await (
+    await fetch(`${NEXT_PUBLIC_API_URL}/posts?_sort=updated_at:DESC`)
+  ).json();
+  const classPosts = [];
+
+  for (let i = 1; i < 5; i += 1) {
+    const posts = await (
+      await fetch(`${NEXT_PUBLIC_API_URL}/posts?class=${i}`)
+    ).json();
+    posts.sort((a, b) => b.votes - a.votes);
+
+    const className = posts[0].class.title;
+    classPosts.push({ title: className, posts });
+  }
 
   return {
     props: {
-      posts,
+      allPosts,
+      classPosts,
     },
   };
-};
+}

@@ -1,0 +1,106 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: gotham-book;
+  src: url('../public/HomepageBaukasten-Book.woff');
+}
+
+@font-face {
+  font-family: gotham-bold;
+  src: url('../public/HomepageBaukasten-Bold.woff');
+}
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: gotham-book, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans,
+    Droid Sans, Helvetica Neue, sans-serif;
+  color: white;
+  background-color: black;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+h2 {
+  @apply text-xl;
+  font-family: gotham-bold;
+}
+
+.skills-bg {
+  width: 1440px;
+}
+
+button {
+  border: 1px solid black;
+  border-radius: 3px;
+  padding: 0.5em 1em;
+  @apply transition-colors;
+  @apply my-2;
+}
+
+button:hover {
+  background-color: black;
+  color: white;
+}
+
+nav ul li {
+  @apply px-5 text-gray-400 hover:text-white transition-colors;
+
+  &:first-child {
+    @apply pl-0;
+  }
+}
+
+.top-posts {
+  [class^='class-'] {
+    position: relative;
+
+    &::before {
+      position: absolute;
+      content: '';
+      background-size: cover;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      opacity: 0.7;
+    }
+
+    > * {
+      position: relative;
+    }
+  }
+
+  .class-devastator {
+    &::before {
+      background-image: url('../public/devastator_bg.jpeg');
+      background-position-x: center;
+    }
+  }
+  .class-pyromancer {
+    &::before {
+      background-image: url('../public/pyromancer_bg.jpeg');
+      background-position-x: center;
+    }
+  }
+  .class-trickster {
+    &::before {
+      background-image: url('../public/trickster_bg.jpeg');
+    }
+  }
+  .class-technomancer {
+    &::before {
+      background-image: url('../public/technomancer_bg.jpeg');
+    }
+  }
+}

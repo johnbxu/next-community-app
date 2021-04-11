@@ -1,4 +1,5 @@
 import React from 'react';
+import Router from 'next/router';
 import PostFull from '../../components/PostFull';
 import Cookie from 'js-cookie';
 
@@ -11,7 +12,6 @@ class New extends React.Component {
       title: '',
       skills: [1],
       username: 'test1',
-      post_type: 'build',
       description: '',
     };
 
@@ -28,7 +28,7 @@ class New extends React.Component {
     e.preventDefault();
 
     const { classChoice } = this.state;
-    const { title, description, skills, post_type } = this.state;
+    const { title, description, skills } = this.state;
     const { classIds } = this.props;
     const token = Cookie.get('jwt');
 
@@ -43,13 +43,20 @@ class New extends React.Component {
         title,
         description,
         skills,
-        post_type,
         class: classIds[classChoice],
       }),
     };
 
     fetch(`${process.env.NEXT_PUBLIC_API_URL}/posts/`, req)
-      .then((res) => res.json())
+      .then((res) => {
+        if (res.ok) {
+          alert('Post submitted');
+        }
+        return res.json();
+      })
+      .then((data) => {
+        Router.push(`/posts/${data.class.title}/${data.id}`);
+      })
       .catch((err) => console.log(err));
   }
 

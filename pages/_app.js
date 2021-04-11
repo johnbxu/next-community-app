@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import Cookie from 'js-cookie';
 import AppContext from '../context/AppContext';
 import Layout from '../components/Layout';
-import '../styles/globals.css';
+import '../styles/globals.scss';
 
 function MyApp({ Component, pageProps, context }) {
   const [user, setUser] = useState('');

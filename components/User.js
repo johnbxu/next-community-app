@@ -1,7 +1,7 @@
 const User = ({user}) => {
   return (
     <div>
-      {user.username}
+      By: {user.username}
     </div>
   )
 }

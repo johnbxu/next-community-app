@@ -9,34 +9,33 @@ const Nav = () => {
   return (
     <nav>
       <ul className="flex items-center flex-wrap bg-teal-500 py-6">
-        <li className="mr-2">
-          <Link href="/">Home</Link>
+        <li>
+          <Link href="/">HOME</Link>
         </li>
-        <li className="mr-2">
-          <Link href="/about">About</Link>
+        <li>
+          <Link href="/about">ABOUT</Link>
         </li>
 
         {user ? (
           <>
-            <li className="mr-2">
-              <Link href="/posts/new">New</Link>
+            <li>
+              <Link href="/posts/new">NEW BUILD</Link>
             </li>
-            <li className="mr-2">
+            <li>
               <Link href="/user/posts">{user.username}</Link>
             </li>
             <li
-              className="mr-2"
               onClick={() => {
                 logout();
                 setUser(null);
               }}
             >
-              <Link href="/">Log Out</Link>
+              <Link href="/">LOG OUT</Link>
             </li>
           </>
         ) : (
-          <li className="mr-2">
-            <Link href="/login">Login</Link>
+          <li>
+            <Link href="/login">LOGIN</Link>
           </li>
         )}
       </ul>
