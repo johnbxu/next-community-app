@@ -40,6 +40,13 @@ h2 {
   width: 1440px;
 }
 
+.main-background {
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background-image: url('../public/page_background.jpeg');
+}
 button {
   border: 1px solid black;
   border-radius: 3px;
@@ -101,6 +108,43 @@ nav ul li {
   .class-technomancer {
     &::before {
       background-image: url('../public/technomancer_bg.jpeg');
+    }
+  }
+}
+
+.post-list {
+  .post {
+    background-size: 50%;
+    background-repeat: no-repeat;
+    background-position-x: right;
+    position: relative;
+
+    &::before {
+      position: absolute;
+      content: '';
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      opacity: 0.5;
+      background: linear-gradient(to right, black, rgba(0, 0, 0, 0.3));
+    }
+
+    &.class-devastator {
+      background-image: linear-gradient(to right, black, transparent), url('../public/devastator_bg.jpeg');
+    }
+    &.class-trickster {
+      background-image: linear-gradient(to right, black, transparent), url('../public/trickster_bg.jpeg');
+    }
+    &.class-pyromancer {
+      background-image: linear-gradient(to right, black, transparent), url('../public/pyromancer_bg.jpeg');
+    }
+    &.class-technomancer {
+      background-image: linear-gradient(to right, black, transparent), url('../public/technomancer_bg.jpeg');
+    }
+
+    > * {
+      position: relative;
     }
   }
 }
