@@ -48,16 +48,17 @@ h2 {
   background-image: url('../public/page_background.jpeg');
 }
 button {
-  border: 1px solid black;
+  border: 1px solid white;
   border-radius: 3px;
+  margin-right: 1em;
   padding: 0.5em 1em;
   @apply transition-colors;
   @apply my-2;
 }
 
 button:hover {
-  background-color: black;
-  color: white;
+  background-color: rgba(255, 255, 255, 0.5);
+  color: black;
 }
 
 nav ul li {
@@ -157,5 +158,17 @@ nav ul li {
     > * {
       position: relative;
     }
+  }
+}
+
+.login-page {
+  input[type='text'], input[type='email'], input[type='password'] {
+    background-color: black;
+    margin-bottom: 1em;
+    border: 1px solid gray;
+  }
+
+  label {
+    display: block;
   }
 }

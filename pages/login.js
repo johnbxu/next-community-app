@@ -45,17 +45,19 @@ const Login = () => {
   }
 
   return (
-    <>
+    <div className="login-page">
       <div className="container mx-auto max-w-md">
-        <div className="p-10 border-2 border-black mb-5">
-          <h1>Log in here</h1>
+        <div className="p-10 border-2 border-gray-300 mb-5">
+          <h2 className="mb-4">Log in</h2>
           <form>
+            <label htmlFor="identifier">Email:</label>
             <input
               type="email"
               onChange={(event) => onChange(event)}
               name="identifier"
             />
             <br />
+            <label htmlFor="password">Password:</label>
             <input
               onChange={(event) => onChange(event)}
               type="password"
@@ -73,20 +75,23 @@ const Login = () => {
           </form>
         </div>
 
-        <div className="p-10 border-2 border-black mb-5">
-          <h1>Register here</h1>
+        <div className="p-10 border-2 border-gray-300 mb-5">
+          <h2 className="mb-4">Register for an account</h2>
           <form>
+            <label htmlFor="registrationUsername">Username:</label>
             <input
               type="text"
               onChange={(event) => onChange(event)}
               name="registrationUsername"
             />
+            <label htmlFor="registrationEmail">Email:</label>
             <input
               type="email"
               onChange={(event) => onChange(event)}
               name="registrationEmail"
             />
             <br />
+            <label htmlFor="registrationPassword">Password:</label>
             <input
               onChange={(event) => onChange(event)}
               type="password"
@@ -108,7 +113,7 @@ const Login = () => {
           </form>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
