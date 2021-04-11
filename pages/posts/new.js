@@ -102,7 +102,9 @@ export const getServerSideProps = async () => {
   const classIds = {};
   for (let i = 1; i < 5; i += 1) {
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/classes/${i}`, {
+      method: 'GET',
       headers: {
+        'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
       },
     });
