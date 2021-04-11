@@ -97,10 +97,15 @@ class New extends React.Component {
 export default New;
 
 export const getServerSideProps = async () => {
+  const token = Cookie.get('jwt');
   const classSkills = {};
   const classIds = {};
   for (let i = 1; i < 5; i += 1) {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/classes/${i}`);
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/classes/${i}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
     const { skill_nodes, title } = await res.json();
     classSkills[title] = skill_nodes;
     classIds[title] = i;
