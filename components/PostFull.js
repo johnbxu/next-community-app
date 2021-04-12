@@ -25,7 +25,7 @@ const PostFull = ({
 
   return (
     <>
-      <h1 className="text-3xl mb-5">{pageTitle}</h1>
+      <h2 className="text-3xl mb-5">{pageTitle}</h2>
       {pageTitle === 'Create New Build' || pageTitle === 'Edit Build' ? (
         <form>
           <div className="mb-5">
@@ -83,7 +83,7 @@ const PostFull = ({
           </section>
 
           <button type="button" onClick={(e) => handleSubmit(e)}>Submit</button>
-          <button type="button" onClick={(e) => handleDelete(e)}>Delete Post</button>
+          {pageTitle === 'Edit Build' ? <button type="button" onClick={(e) => handleDelete(e)}>Delete Post</button> : ''}
         </form>
       ) : (
         <>

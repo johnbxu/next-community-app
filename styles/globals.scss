@@ -161,14 +161,16 @@ nav ul li {
   }
 }
 
-.login-page {
-  input[type='text'], input[type='email'], input[type='password'] {
-    background-color: black;
-    margin-bottom: 1em;
-    border: 1px solid gray;
-  }
+input[type='text'],
+input[type='email'],
+input[type='password'],
+select,
+textarea {
+  background-color: black;
+  margin-bottom: 1em;
+  border: 1px solid gray;
+}
 
-  label {
-    display: block;
-  }
+label {
+  display: block;
 }
