@@ -2,7 +2,6 @@ import React from 'react';
 import Router from 'next/router';
 import PostFull from '../../components/PostFull';
 import Cookies from 'js-cookie';
-import parseCookie from '../../lib/parseCookie';
 
 class New extends React.Component {
   constructor(props) {
@@ -100,16 +99,9 @@ export default New;
 export const getServerSideProps = async ({ req }) => {
   const classSkills = {};
   const classIds = {};
-  const token = parseCookie(req.headers.cookie).jwt;
 
   for (let i = 1; i < 5; i += 1) {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/classes/${i}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/classes/${i}`);
     const { skill_nodes, title } = await res.json();
     classSkills[title] = skill_nodes;
     classIds[title] = i;

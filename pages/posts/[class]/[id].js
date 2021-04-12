@@ -3,7 +3,6 @@ import Cookie from 'js-cookie';
 import Router from 'next/router';
 import AppContext from '../../../context/AppContext';
 import PostFull from '../../../components/PostFull';
-import parseCookie from '../../../lib/parseCookie';
 
 const { NEXT_PUBLIC_API_URL } = process.env;
 
@@ -131,18 +130,11 @@ export async function getServerSideProps({ query, req }) {
   const { id } = query;
   const res = await fetch(`${NEXT_PUBLIC_API_URL}/posts/${id}`);
   const post = await res.json();
-  const token = parseCookie(req.headers.cookie).jwt;
 
   const classSkills = {};
   const classIds = {};
   for (let i = 1; i < 5; i += 1) {
-    const res = await fetch(`${NEXT_PUBLIC_API_URL}/classes/${i}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const res = await fetch(`${NEXT_PUBLIC_API_URL}/classes/${i}`);
     const { skill_nodes, title } = await res.json();
     classSkills[title] = skill_nodes;
     classIds[title] = i;
