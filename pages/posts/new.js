@@ -2,6 +2,7 @@ import React from 'react';
 import Router from 'next/router';
 import PostFull from '../../components/PostFull';
 import Cookies from 'js-cookie';
+import parseCookie from '../../lib/parseCookie';
 
 class New extends React.Component {
   constructor(props) {
@@ -99,7 +100,7 @@ export default New;
 export const getServerSideProps = async ({ req }) => {
   const classSkills = {};
   const classIds = {};
-  const token = toCookieObj(req.headers.cookie).jwt;
+  const token = parseCookie(req.headers.cookie).jwt;
 
   for (let i = 1; i < 5; i += 1) {
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/classes/${i}`, {
@@ -121,13 +122,3 @@ export const getServerSideProps = async ({ req }) => {
     },
   };
 };
-
-function toCookieObj(cookieInput) {
-  const result = {};
-  const cookies = cookieInput.split(';');
-  cookies.forEach((cookie) => {
-    const cookieResult = cookie.split('=');
-    result[cookieResult[0].replace(' ', '')] = cookieResult[1];
-  });
-  return result;
-}

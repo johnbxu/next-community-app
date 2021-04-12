@@ -28,7 +28,7 @@ const PostFull = ({
       <h2 className="text-3xl mb-5">{pageTitle}</h2>
       {pageTitle === 'Create New Build' || pageTitle === 'Edit Build' ? (
         <form>
-          <div className="mb-5">
+          <div>
             <label htmlFor="title">Title: </label>
             <input
               name="title"
