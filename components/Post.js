@@ -14,7 +14,7 @@ const Post = ({ post }) => {
             <div>{post.title}</div>
             <User user={post.author} key={post.author.id} />
             <div>
-              Last Updated: {moment(post.updated_at).startOf('day').fromNow()}
+              Last Updated: {moment(post.updated_at).fromNow()}
             </div>
           </div>
           <div className="flex flex-col items-end">

@@ -31,7 +31,7 @@ const TopPosts = ({ classPosts }) => {
                       <div>By: {post.author.username}</div>
                       <div>
                         Last Updated:{' '}
-                        {moment(post.updated_at).startOf('day').fromNow()}
+                        {moment(post.updated_at).fromNow()}
                       </div>
                     </div>
                   </div>
