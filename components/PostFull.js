@@ -1,5 +1,6 @@
 import { useContext, useState } from 'react';
 import SkillNode from './SkillNode';
+import SkillTree from './SkillTree';
 import AppContext from '../context/AppContext';
 
 const PostFull = ({
@@ -11,7 +12,7 @@ const PostFull = ({
   handleChange,
   handleVote,
   handleSubmit,
-  handleDelete
+  handleDelete,
 }) => {
   const {
     title,
@@ -55,11 +56,7 @@ const PostFull = ({
             </select>
           </div>
 
-          <section className="skills mb-5 overflow-x-scroll overflow-y-hidden relative">
-            <img
-              className="max-w-none skills-bg"
-              src="/outriders-devastator-skill-tree.jpeg"
-            />
+          <SkillTree classChoice={classChoice}>
             {classSkills[classChoice].map((skillNode) => (
               <SkillNode
                 key={skillNode.id}
@@ -67,7 +64,7 @@ const PostFull = ({
                 onClick={(event) => toggleSkill(event)}
               />
             ))}
-          </section>
+          </SkillTree>
 
           <section>
             <label htmlFor="description">Description</label>
@@ -82,14 +79,30 @@ const PostFull = ({
             ></textarea>
           </section>
 
-          <button type="button" onClick={(e) => handleSubmit(e)}>Submit</button>
-          {pageTitle === 'Edit Build' ? <button type="button" onClick={(e) => handleDelete(e)}>Delete Post</button> : ''}
+          <button type="button" onClick={(e) => handleSubmit(e)}>
+            Submit
+          </button>
+          {pageTitle === 'Edit Build' ? (
+            <button type="button" onClick={(e) => handleDelete(e)}>
+              Delete Post
+            </button>
+          ) : (
+            ''
+          )}
         </form>
       ) : (
         <>
           <p>Created by: {author.username}</p>
           <p>Published at: {published_at}</p>
           <p>Updated at: {updated_at}</p>
+          <SkillTree classChoice={postData.class.title}>
+            {classSkills[postData.class.title].map((skillNode) => (
+              <SkillNode
+                key={skillNode.id}
+                skillNode={skillNode}
+              />
+            ))}
+          </SkillTree>
           <p className="my-2">{description}</p>
           <p>Votes: {votes}</p>
           <button onClick={handleVote}>Vote</button>

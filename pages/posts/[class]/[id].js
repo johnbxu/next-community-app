@@ -7,9 +7,16 @@ import PostFull from '../../../components/PostFull';
 const { NEXT_PUBLIC_API_URL } = process.env;
 
 const Post = ({ post, classSkills, classIds }) => {
-  const [postData, updatePostData] = useState(post);
   const { user, isAuthenticated, setUser } = useContext(AppContext);
+  // const userVoted = user.upvoted_posts.filter(upvotedPost => post.id === upvotedPost.id).length > 0
+  // const [voted, setVoted] = useState(userVoted);
+  post.classChoice = post.class.title;
+  const [postData, updatePostData] = useState(post);
   const token = Cookie.get('jwt');
+  const headers = {
+    'Content-Type': 'application/json',
+    Authorization: `Bearer ${token}`,
+  };
 
   function onChange(event) {
     updatePostData({ ...postData, [event.target.name]: event.target.value });
@@ -39,10 +46,7 @@ const Post = ({ post, classSkills, classIds }) => {
     const { title, description, skills, classChoice, id } = postData;
     const req = {
       method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
+      headers,
 
       body: JSON.stringify({
         id,
@@ -65,10 +69,7 @@ const Post = ({ post, classSkills, classIds }) => {
     const { id } = postData;
     const req = {
       method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
+      headers,
       body: {
         id,
       },
@@ -86,10 +87,7 @@ const Post = ({ post, classSkills, classIds }) => {
   function handleVote(e) {
     const req = {
       method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
+      headers,
       body: JSON.stringify({
         upvoted_posts: [...user.upvoted_posts, { id: post.id }],
       }),
@@ -107,7 +105,7 @@ const Post = ({ post, classSkills, classIds }) => {
     <PostFull
       pageTitle="Edit Build"
       postData={postData}
-      classChoice={postData.class.title}
+      classChoice={postData.classChoice}
       classSkills={classSkills}
       handleChange={onChange}
       toggleSkill={toggleSkill}
