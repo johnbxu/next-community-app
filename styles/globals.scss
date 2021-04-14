@@ -175,3 +175,25 @@ textarea {
 label {
   display: block;
 }
+
+.skill-node {
+  cursor: pointer;
+
+  &.type-lg {
+    width: 75px;
+    height: 75px;
+  }
+  &.type-sm {
+    width: 34px;
+    height: 34px;
+  }
+  &.type-md {
+    width: 52px;
+    height: 52px;
+  }
+
+  &.active {
+    background: #ffff001a;
+    box-shadow: 0 0 10px 2px #ffd400;
+  }
+}

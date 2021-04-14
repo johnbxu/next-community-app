@@ -62,6 +62,7 @@ const PostFull = ({
                 key={skillNode.id}
                 skillNode={skillNode}
                 onClick={(event) => toggleSkill(event)}
+                active={postData.skills.includes(skillNode.node_id)}
               />
             ))}
           </SkillTree>
