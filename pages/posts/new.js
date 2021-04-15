@@ -120,15 +120,17 @@ class New extends React.Component {
     const { classSkills, classChoice } = this.state;
 
     return (
-      <PostFull
-        pageTitle="Create New Build"
-        postData={this.state}
-        classChoice={classChoice}
-        classSkills={classSkills}
-        handleChange={this.handleChange}
-        toggleSkill={this.toggleSkill}
-        handleSubmit={this.handleSubmit}
-      />
+      <div className="container px-2 mx-auto">
+        <PostFull
+          pageTitle="Create New Build"
+          postData={this.state}
+          classChoice={classChoice}
+          classSkills={classSkills}
+          handleChange={this.handleChange}
+          toggleSkill={this.toggleSkill}
+          handleSubmit={this.handleSubmit}
+        />
+      </div>
     );
   }
 }

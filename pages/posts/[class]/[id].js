@@ -101,25 +101,29 @@ const Post = ({ post, classSkills, classIds }) => {
       });
   }
 
-  return isAuthenticated && user.id === post.author.id ? (
-    <PostFull
-      pageTitle="Edit Build"
-      postData={postData}
-      classChoice={postData.classChoice}
-      classSkills={classSkills}
-      handleChange={onChange}
-      toggleSkill={toggleSkill}
-      handleSubmit={handleSubmit}
-      handleDelete={handleDelete}
-    />
-  ) : (
-    <PostFull
-      pageTitle={postData.title}
-      postData={postData}
-      classSkills={classSkills}
-      handleVote={handleVote}
-      votes={postData.votes}
-    />
+  return (
+    <div className="container px-2 mx-auto">
+      {isAuthenticated && user.id === post.author.id ? (
+        <PostFull
+          pageTitle="Edit Build"
+          postData={postData}
+          classChoice={postData.classChoice}
+          classSkills={classSkills}
+          handleChange={onChange}
+          toggleSkill={toggleSkill}
+          handleSubmit={handleSubmit}
+          handleDelete={handleDelete}
+        />
+      ) : (
+        <PostFull
+          pageTitle={postData.title}
+          postData={postData}
+          classSkills={classSkills}
+          handleVote={handleVote}
+          votes={postData.votes}
+        />
+      )}
+    </div>
   );
 };
 
