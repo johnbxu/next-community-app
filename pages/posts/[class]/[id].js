@@ -119,7 +119,6 @@ const Post = ({ post, classSkills, classIds }) => {
       classSkills={classSkills}
       handleVote={handleVote}
       votes={postData.votes}
-      userId={user.id}
     />
   );
 };

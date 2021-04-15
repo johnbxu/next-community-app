@@ -101,6 +101,7 @@ const PostFull = ({
               <SkillNode
                 key={skillNode.id}
                 skillNode={skillNode}
+                active={postData.skills.includes(skillNode.node_id)}
               />
             ))}
           </SkillTree>
