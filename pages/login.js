@@ -46,7 +46,7 @@ const Login = () => {
 
   return (
     <div className="login-page">
-      <div className="container mx-auto max-w-md">
+      <div className="container px-2 mx-auto max-w-md">
         <div className="p-10 border-2 border-gray-300 mb-5">
           <h2 className="mb-4">Log in</h2>
           <form>

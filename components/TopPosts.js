@@ -8,7 +8,7 @@ const TopPosts = ({ classPosts }) => {
   });
 
   return (
-    <>
+    <div className="container px-2 mx-auto relative">
       <div className="grid md:grid-cols-2 gap-2 mb-5 top-posts">
         {classPosts.map((classObj) => (
           <div
@@ -41,7 +41,7 @@ const TopPosts = ({ classPosts }) => {
           </div>
         ))}
       </div>
-    </>
+    </div>
   );
 };
 

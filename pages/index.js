@@ -4,9 +4,13 @@ import TopPosts from '../components/TopPosts';
 export default function Home({ allPosts, classPosts }) {
   return (
     <>
-      <h2 className="mb-3">Top Builds</h2>
+      <div className="container px-2 mx-auto relative">
+        <h2 className="mb-3">Top Builds</h2>
+      </div>
       <TopPosts classPosts={classPosts} />
-      <h2 className="mb-3">Recent Builds</h2>
+      <div className="container px-2 mx-auto relative">
+        <h2 className="mb-3">Recent Builds</h2>
+      </div>
       <PostList posts={allPosts} />
     </>
   );
