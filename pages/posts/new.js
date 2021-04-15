@@ -13,6 +13,7 @@ class New extends React.Component {
       skills: [1],
       username: 'test1',
       description: '',
+      skillPoints: 20,
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -61,7 +62,7 @@ class New extends React.Component {
   }
 
   toggleSkill(skillId) {
-    const { classChoice, classSkills } = this.state;
+    const { classChoice, classSkills, skillPoints } = this.state;
     let { skills } = this.state;
     const requiredSkills = classSkills[classChoice].filter(
       (classChoice) => classChoice.node_id === skillId
@@ -81,12 +82,14 @@ class New extends React.Component {
       if (!skills.includes(skillId)) {
         if (checkPrevNodes(skills, requiredSkills)) {
           skills.push(skillId);
+          this.setState({skillPoints: skillPoints - 1})
         }
       } else {
         if (checkNextNodes(skills, nextSkills)) {
           const index = skills.indexOf(skillId);
           if (index !== -1) {
             skills.splice(index, 1);
+            this.setState({skillPoints: skillPoints + 1})
           }
         }
       }
@@ -117,7 +120,7 @@ class New extends React.Component {
   }
 
   render() {
-    const { classSkills, classChoice } = this.state;
+    const { classSkills, classChoice, skillPoints } = this.state;
 
     return (
       <div className="container px-2 mx-auto">
@@ -126,6 +129,7 @@ class New extends React.Component {
           postData={this.state}
           classChoice={classChoice}
           classSkills={classSkills}
+          skillPoints={skillPoints}
           handleChange={this.handleChange}
           toggleSkill={this.toggleSkill}
           handleSubmit={this.handleSubmit}

@@ -8,6 +8,7 @@ const { NEXT_PUBLIC_API_URL } = process.env;
 
 const Post = ({ post, classSkills, classIds }) => {
   const { user, isAuthenticated, setUser } = useContext(AppContext);
+  const [skillPoints, setSkillPoints] = useState(20);
   // const userVoted = user.upvoted_posts.filter(upvotedPost => post.id === upvotedPost.id).length > 0
   // const [voted, setVoted] = useState(userVoted);
   post.classChoice = post.class.title;
@@ -109,6 +110,7 @@ const Post = ({ post, classSkills, classIds }) => {
           postData={postData}
           classChoice={postData.classChoice}
           classSkills={classSkills}
+          skillPoints={skillPoints}
           handleChange={onChange}
           toggleSkill={toggleSkill}
           handleSubmit={handleSubmit}

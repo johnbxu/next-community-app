@@ -7,6 +7,7 @@ const PostFull = ({
   pageTitle,
   classSkills,
   classChoice,
+  skillPoints,
   postData,
   toggleSkill,
   handleChange,
@@ -57,6 +58,7 @@ const PostFull = ({
           </div>
 
           <SkillTree classChoice={classChoice}>
+            <div className="skill-points">{skillPoints}</div>
             {classSkills[classChoice].map((skillNode) => (
               <SkillNode
                 key={skillNode.id}
