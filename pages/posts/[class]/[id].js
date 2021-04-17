@@ -24,21 +24,40 @@ const Post = ({ post, classSkills, classIds }) => {
   }
 
   function toggleSkill(skillId) {
-    const { classChoice, classSkills } = postData;
+    const { classChoice } = postData;
     let { skills } = postData;
     const requiredSkills = classSkills[classChoice].filter(
       (classChoice) => classChoice.node_id === skillId
     )[0].prev_nodes;
 
-    let checker = (arr, target) => target.every((v) => arr.includes(v));
+    const nextSkills = classSkills[classChoice].filter(
+      (classChoice) => classChoice.node_id === skillId
+    )[0].next_nodes;
 
-    if (!skills.includes(skillId) && checker(skills, requiredSkills)) {
-      skills.push(skillId);
-    } else if (skillId !== 1) {
-      skills = skills.filter((item) => item != skillId);
+    let checkPrevNodes = (skills, requiredSkills) =>
+      requiredSkills.some((requiredSkill) => skills.includes(requiredSkill));
+
+    let checkNextNodes = (skills, nextSkills) =>
+      nextSkills.every((nextSkill) => !skills.includes(nextSkill));
+
+    if (skillId !== 1) {
+      if (!skills.includes(skillId)) {
+        if (checkPrevNodes(skills, requiredSkills)) {
+          skills.push(skillId);
+          setSkillPoints(skillPoints - 1)
+        }
+      } else {
+        if (checkNextNodes(skills, nextSkills)) {
+          const index = skills.indexOf(skillId);
+          if (index !== -1) {
+            skills.splice(index, 1);
+            setSkillPoints(skillPoints + 1)
+          }
+        }
+      }
     }
 
-    updatePostData({ ...data, skills });
+    updatePostData({ ...postData, skills });
   }
 
   function handleSubmit(e) {
