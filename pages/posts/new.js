@@ -61,40 +61,87 @@ class New extends React.Component {
       .catch((err) => console.log(err));
   }
 
-  toggleSkill(skillId) {
-    const { classChoice, classSkills, skillPoints } = this.state;
-    let { skills } = this.state;
-    const requiredSkills = classSkills[classChoice].filter(
-      (classChoice) => classChoice.node_id === skillId
-    )[0].prev_nodes;
 
-    const nextSkills = classSkills[classChoice].filter(
-      (classChoice) => classChoice.node_id === skillId
-    )[0].next_nodes;
+  toggleSkill(skillId) {
+    const { classChoice, classSkills } = this.state;
+    let updatedSkills = this.state.skills.slice();
+    let updatedSkillPoints = this.state.skillPoints;
+    let validChange = true;
 
     let checkPrevNodes = (skills, requiredSkills) =>
-      requiredSkills.some((requiredSkill) => skills.includes(requiredSkill));
+       requiredSkills.some((requiredSkill) => skills.includes(requiredSkill));
 
-    let checkNextNodes = (skills, nextSkills) =>
-      nextSkills.every((nextSkill) => !skills.includes(nextSkill));
-
-    if (skillId !== 1) {
-      if (!skills.includes(skillId)) {
-        if (checkPrevNodes(skills, requiredSkills)) {
-          skills.push(skillId);
-          this.setState({skillPoints: skillPoints - 1})
-        }
-      } else {
-        if (checkNextNodes(skills, nextSkills)) {
-          const index = skills.indexOf(skillId);
-          if (index !== -1) {
-            skills.splice(index, 1);
-            this.setState({skillPoints: skillPoints + 1})
-          }
+    if(skillId!==1){
+      if (!updatedSkills.includes(skillId)) {
+        updatedSkills.push(skillId);
+        updatedSkillPoints--;
+      }
+      else {
+        const skillIndex = updatedSkills.indexOf(skillId);
+        if (skillIndex !== -1)
+        {
+          updatedSkills.splice(skillIndex, 1);
+          updatedSkillPoints++;
         }
       }
-    }
 
+      //test for valid change
+      updatedSkills.forEach(skill => {
+        let requiredSkills = classSkills[classChoice].filter(
+          (classChoice) => classChoice.node_id === skill
+        )[0].prev_nodes;
+        if(skill!==1 && !checkPrevNodes(updatedSkills, requiredSkills))
+        {
+          validChange = false;
+        }
+      });
+      
+      if (validChange === true) {
+        this.setState({ skills: updatedSkills });
+        this.setState({ skillPoints: updatedSkillPoints})
+      }
+    }
+    
+
+
+
+    // const requiredSkills = classSkills[classChoice].filter(
+    //   (classChoice) => classChoice.node_id === skillId
+    // )[0].prev_nodes;
+
+    // const nextSkills = classSkills[classChoice].filter(
+    //   (classChoice) => classChoice.node_id === skillId
+    // )[0].next_nodes;
+
+    // let checkPrevNodes = (skills, requiredSkills) =>
+    //   requiredSkills.some((requiredSkill) => skills.includes(requiredSkill));
+
+    // let checkNextNodes = (skills, nextSkills) =>
+    //   nextSkills. every((nextSkill) => !skills.includes(nextSkill));
+
+    // if (skillId !== 1) {
+    //   if (!skills.includes(skillId)) {
+    //     if (checkPrevNodes(skills, requiredSkills)) {
+    //       skills.push(skillId);
+    //       this.setState({skillPoints: skillPoints - 1})
+    //     }
+    //   } else {
+    //     if (checkNextNodes(skills, nextSkills)) {
+    //       const index = skills.indexOf(skillId);
+    //       if (index !== -1) {
+    //         skills.splice(index, 1);
+    //         this.setState({skillPoints: skillPoints + 1})
+    //       }
+    //     }
+    //   }
+    // }
+
+
+
+
+
+
+//---------------------------------------------------------------------------------
     // if (!skills.includes(skillId) && checkPrevNodes(skills, requiredSkills)) {
     //   skills.push(skillId);
     // } else if (skillId !== 1) {
@@ -115,8 +162,7 @@ class New extends React.Component {
     //     skills.splice(index, 1);
     //   }
     // }
-
-    this.setState({ skills });
+    
   }
 
   render() {
