@@ -44,14 +44,14 @@ const Post = ({ post, classSkills, classIds }) => {
       if (!skills.includes(skillId)) {
         if (checkPrevNodes(skills, requiredSkills)) {
           skills.push(skillId);
-          setSkillPoints(skillPoints - 1)
+          setSkillPoints(skillPoints - 1);
         }
       } else {
         if (checkNextNodes(skills, nextSkills)) {
           const index = skills.indexOf(skillId);
           if (index !== -1) {
             skills.splice(index, 1);
-            setSkillPoints(skillPoints + 1)
+            setSkillPoints(skillPoints + 1);
           }
         }
       }
@@ -118,6 +118,13 @@ const Post = ({ post, classSkills, classIds }) => {
       .then((data) => {
         console.log(data);
         setUser(data);
+        return fetch(`${process.env.NEXT_PUBLIC_API_URL}/posts/${post.id}`);
+      })
+      .then((res) => res.json())
+      .then((data) => {
+        postData.votes = data.votes;
+        console.log(postData);
+        updatePostData(postData);
       });
   }
 
