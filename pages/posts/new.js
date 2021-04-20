@@ -66,9 +66,58 @@ class New extends React.Component {
     let updatedSkills = this.state.skills.slice();
     let updatedSkillPoints = this.state.skillPoints;
     let validChange = true;
+    let checkedSkills = [1];
 
-    let checkPrevNodes = (skills, requiredSkills) =>
-       requiredSkills.some((requiredSkill) => skills.includes(requiredSkill));
+    // let checkPrevNodes = (skills, requiredSkills) =>
+    //    requiredSkills.some((requiredSkill) => skills.includes(requiredSkill));
+
+
+    const checkBranches = (selectedNodes, startingNode, nodeTree, previouslyCheckedNodes) => {
+      let checkedNodes = previouslyCheckedNodes;
+      let currentTestNodes = [startingNode];
+      let futureTestNodes = [];
+      let connectedToStart = false;
+
+      const checkConnectedNodes = (testNode, currentStatus) => {
+        let activeConnectedNodes = (nodeTree.filter(
+          (tree) => tree.node_id === testNode
+        )[0].prev_nodes).filter(
+          (node) => selectedNodes.includes(node)
+        );
+        if(activeConnectedNodes.some((node)  => previouslyCheckedNodes.includes(node))) {
+          return true;
+        }
+        else {
+          activeConnectedNodes.forEach((node) => {
+            futureTestNodes.includes(node) ? '' : futureTestNodes.push(node);
+          });
+          checkedNodes.push(testNode);
+          return currentStatus;
+        }
+      }
+      
+      connectedToStart = checkConnectedNodes(startingNode, connectedToStart);
+      
+      while(!connectedToStart && currentTestNodes.length !== 0){
+        checkedNodes.push(startingNode);
+        currentTestNodes = futureTestNodes.slice().filter(
+          (node) => !checkedNodes.includes(node)
+        );
+        futureTestNodes = [];
+        if(currentTestNodes.length!==0) {
+          currentTestNodes.forEach(node => {
+            connectedToStart = checkConnectedNodes(node, connectedToStart);
+          });
+        }
+      }
+      
+      let returnValues = {
+        isValid: connectedToStart,
+        checkedNodes: checkedNodes,
+      }
+
+      return returnValues;
+    }
 
     if(skillId!==1){
       if (!updatedSkills.includes(skillId)) {
@@ -85,19 +134,29 @@ class New extends React.Component {
       }
 
       //test for valid change
-      updatedSkills.forEach(skill => {
-        let requiredSkills = classSkills[classChoice].filter(
-          (classChoice) => classChoice.node_id === skill
-        )[0].prev_nodes;
-        if(skill!==1 && !checkPrevNodes(updatedSkills, requiredSkills))
-        {
-          validChange = false;
-        }
-      });
+      if (updatedSkillPoints < 0) {
+        validChange = false;
+        alert('Not enough skill points!');
+      }
+      else if (updatedSkills.length > 1) {
+        updatedSkills.forEach((skill) => {
+          if(!checkedSkills.includes(skill)) {
+            let skillTest = checkBranches(updatedSkills, skill, classSkills[classChoice], checkedSkills);
+            skillTest.checkedNodes.forEach((node) => {
+              checkedSkills.includes(node) ? '' : checkedSkills.push(node);
+            });
+            if(!skillTest.isValid){
+              validChange = false;
+            }
+          }          
+        });
+      }
       
       if (validChange === true) {
-        this.setState({ skills: updatedSkills });
-        this.setState({ skillPoints: updatedSkillPoints})
+        this.setState({
+          skills: updatedSkills,
+          skillPoints: updatedSkillPoints,
+        });
       }
     }
     
