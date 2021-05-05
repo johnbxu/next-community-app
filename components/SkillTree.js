@@ -1,6 +1,6 @@
 import React from 'react';
 
-const SkillTree = ({ classChoice, children }) => {
+const SkillTree = React.memo(({ classChoice, children }) => {
   return (
     <section className="skills mb-5 overflow-x-scroll overflow-y-hidden relative">
       <img
@@ -10,6 +10,6 @@ const SkillTree = ({ classChoice, children }) => {
       {children}
     </section>
   );
-};
+});
 
 export default SkillTree;

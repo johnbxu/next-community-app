@@ -1,4 +1,6 @@
-const SkillNode = ({ skillNode, onClick, active }) => {
+import React from 'react';
+
+const SkillNode = React.memo(({ skillNode, onClick, active }) => {
   const style = {
     left: skillNode.x,
     top: skillNode.y
@@ -16,6 +18,6 @@ const SkillNode = ({ skillNode, onClick, active }) => {
       </div>
     </div>
   );
-};
+});
 
 export default SkillNode;
